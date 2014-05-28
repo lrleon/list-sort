@@ -4,9 +4,9 @@ means <- function(data) {
     r <- data.frame(data$n)
     
     len <- ncol(data)
-    vi <- c(F, 2:l %% 3 == 2)
-    vm <- c(F, 2:l %% 3 == 0)
-    vq <- c(F, 2:l %% 3 == 1)
+    vi <- c(F, 2:len %% 3 == 2)
+    vm <- c(F, 2:len %% 3 == 0)
+    vq <- c(F, 2:len %% 3 == 1)
 
     i <- as.numeric(rowMeans(data[, vi]))
     m <- as.numeric(rowMeans(data[, vm]))
@@ -21,7 +21,3 @@ means <- function(data) {
     r
 }
 
-plot.means <- function(data, inter) {
-
-    r <- means(data)
-    plot(
