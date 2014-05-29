@@ -40,7 +40,7 @@ inline DynList<double> measure_random(const size_t n,
   return ret;
 }
 
-inline DynList<double> measure_semi_sorted(const size_t n,  
+inline DynList<double> measure_semi_sorted(const size_t n, 
 					   const double sort_fact,
 					   const size_t num_exp, 
 					   const int m, gsl_rng * r)

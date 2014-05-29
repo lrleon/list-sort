@@ -1,8 +1,10 @@
+# ifndef GEN_H
+# define GEN_H
+
 # include <gsl/gsl_rng.h>
+# include <cassert>
 
-
-using Ulong = unsigned long;
-
+# include "defs.H"
 
 DynList<Ulong> generate_random_perm(const size_t n, gsl_rng * r)
 {
@@ -37,3 +39,5 @@ DynList<Ulong> generate_semi_sorted_perm(const size_t n,
   return elems.map<Ulong, DynList>();
 }
 
+
+# endif // GEN_H

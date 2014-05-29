@@ -16,19 +16,55 @@ INCLUDE = -I. -I $(ALEPH)
 LIBS = -L $(ALEPH) \
        -lAleph -lnana -lc -lm -lgsl -lgslcblas -lgmp -lmpfr -lasprintf -lpthread
 
-all: rand-perm rand-perm-op semi-perm semi-perm-op
+HEADERS= gen.H measure-sort.H sort.H defs.H
+
+SRC= rand-perm.C rand-perm-op.C semi-perm.C semi-perm-op.C testmqi.C testqi.C testmi.C testq.C testm.C
+
+EXE=rand-perm rand-perm-op semi-perm semi-perm-op testmqi testqi testmi testq testm testmqi-op testqi-op testmi-op testq-op testm-op
+
+all: $(EXE)
 
 clean:
-	rm -f rand-perm rand-perm-op
+	rm -f $(EXE)
 
-rand-perm: rand-perm.C gen.H measure-sort.H
+testmqi: testmqi.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testmi: testmi.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testqi: testqi.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testq: testq.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testm: testm.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testmqi-op: testmqi
+	$(CXX) $(OPT) $(INCLUDE) testmqi.C -o $@ $(LIBS)
+
+testmi-op: testmi
+	$(CXX) $(OPT) $(INCLUDE) testmi.C -o $@ $(LIBS)
+
+testqi-op: testqi
+	$(CXX) $(OPT) $(INCLUDE) testqi.C -o $@ $(LIBS)
+
+testq-op: testq
+	$(CXX) $(OPT) $(INCLUDE) testq.C -o $@ $(LIBS)
+
+testm-op: testm
+	$(CXX) $(OPT) $(INCLUDE) testm.C -o $@ $(LIBS)
+
+rand-perm: rand-perm.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
 rand-perm-op: rand-perm
 	$(CXX) $(OPT) $(INCLUDE) rand-perm.C -o $@ $(LIBS)
 
-semi-perm: semi-perm.C gen.H measure-sort.H
+semi-perm: semi-perm.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
 semi-perm-op: semi-perm
-	$(CXX) $(OPT) $(INCLUDE) rand-perm.C -o $@ $(LIBS)
+	$(CXX) $(OPT) $(INCLUDE) semi-perm.C -o $@ $(LIBS)
