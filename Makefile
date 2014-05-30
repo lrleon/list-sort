@@ -18,9 +18,9 @@ LIBS = -L $(ALEPH) \
 
 HEADERS= gen.H measure-sort.H sort.H defs.H
 
-SRC= rand-perm.C rand-perm-op.C semi-perm.C semi-perm-op.C testmqi.C testqi.C testmi.C testq.C testm.C
+SRC= rand-perm.C rand-perm-op.C semi-perm.C semi-perm-op.C testmqi.C testqi.C testmi.C testq.C testm.C testsqm.C
 
-EXE=rand-perm rand-perm-op semi-perm semi-perm-op testmqi testqi testmi testq testm testmqi-op testqi-op testmi-op testq-op testm-op
+EXE=rand-perm rand-perm-op semi-perm semi-perm-op testmqi testqi testmi testq testm testmqi-op testqi-op testmi-op testq-op testm-op testsqm testsqm-op
 
 all: $(EXE)
 
@@ -42,6 +42,9 @@ testq: testq.C $(HEADERS)
 testm: testm.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
+testsqm: testsqm.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
 testmqi-op: testmqi
 	$(CXX) $(OPT) $(INCLUDE) testmqi.C -o $@ $(LIBS)
 
@@ -56,6 +59,9 @@ testq-op: testq
 
 testm-op: testm
 	$(CXX) $(OPT) $(INCLUDE) testm.C -o $@ $(LIBS)
+
+testsqm-op: testsqm
+	$(CXX) $(OPT) $(INCLUDE) testsqm.C -o $@ $(LIBS)
 
 rand-perm: rand-perm.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)

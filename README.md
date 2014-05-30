@@ -1,1 +1,1 @@
-# Analysis of sorting method for single chained list
+# Analysis of sorting method for single chained lists

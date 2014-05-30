@@ -10,6 +10,60 @@
 
 size_t insertion_threshold = 20;
 
+inline bool double_next(DynList<Ulong>::Iterator & it1, 
+			DynList<Ulong>::Iterator & it2, 
+			size_t & count,
+			Ulong & prev)
+{
+  Ulong curr = it2.get_curr();
+  bool ret =  curr >= prev; 
+  it2.next();
+  ++count; 
+  if (not it2.has_curr())
+    return ret;
+  
+  prev = curr; 
+  it1.next();
+  ret =  it2.get_curr() >= prev; 
+  it2.next();
+  ++count; 
+
+  return ret;
+} 
+
+// return 0 if the list is already sorted 
+size_t split_compare(DynList<Ulong> & l, 
+		     DynList<Ulong> & l1, DynList<Ulong> & l2)
+{
+  I(l1.is_empty() and l2.is_empty()); 
+
+  if (l.is_empty() or l.is_unitarian())
+    return 0; // no split
+  
+  Ulong prev = l.get_first();
+  bool is_sorted = true;
+
+  size_t count = 0;
+
+  DynList<Ulong>::Iterator it1(l), it2(l);
+  while (it2.has_curr())
+    is_sorted = double_next(it1, it2, count, prev) and is_sorted;
+
+  if (is_sorted)
+    {
+      I(Aleph::is_sorted(l));
+      return 0; // dot not split either
+    }
+
+  I(it1.has_curr());
+  Slinknc * link = reinterpret_cast<HTList::Iterator&>(it1).get_curr(); 
+
+  l.cut_list(link, l2);
+  l.swap(l1);
+
+  return count;
+}
+
     inline 
 size_t split_list(DynList<Ulong> & l, DynList<Ulong> & l1, DynList<Ulong> & l2)
 {
@@ -208,7 +262,49 @@ void quickmergesort(DynList<Ulong> & l,
       quickmergesort(l1, n % 2 == 0 ? n2 : n2 + 1);
       quickmergesort(l2, n2);
     }
-  else if (i2 > i3 and i1 > i4) // probably a good partition
+  else if (i2 > i3 or i1 > i4) // probably a good partition
+    {
+      merge_quicksort_insertion(l1, n % 2 == 0 ? n2 : n2 + 1);
+      merge_quicksort_insertion(l2, n2);
+    }
+  else
+    {
+      quickmergesort(l1, n % 2 == 0 ? n2 : n2 + 1);
+      quickmergesort(l2, n2);
+    }
+
+  merge_lists<DynList<Ulong>, std::less<Ulong>>(l1, l2, l);
+  I(is_sorted(l));
+} 
+
+void super_quickmergesort(DynList<Ulong> & l, 
+			  const size_t lsz = insertion_threshold)
+{
+  if (lsz < insertion_threshold)
+    {
+      insertion_sort(l);
+      return;
+    }
+
+  DynList<Ulong> l1, l2;
+  size_t n = split_compare(l, l1, l2);
+  if (n == 0)
+    {
+      I(is_sorted(l));
+      return; // l is already sorted 
+    }
+
+  size_t n2 = n/2;
+
+  Ulong i1 = l1.get_first(), i2 = l1.get_last(), 
+    i3 = l2.get_first(), i4 = l2.get_last();
+  if ((i1 < i2 and i2 < i3 and i3 < i4) or 
+      (i1 > i2 and i2 > i3 and i3 > i4)) // probably sorted?
+    {
+      quickmergesort(l1, n % 2 == 0 ? n2 : n2 + 1);
+      quickmergesort(l2, n2);
+    }
+  else if (i2 > i3 or i1 > i4) // probably a good partition
     {
       merge_quicksort_insertion(l1, n % 2 == 0 ? n2 : n2 + 1);
       merge_quicksort_insertion(l2, n2);
