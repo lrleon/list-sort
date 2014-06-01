@@ -1,5 +1,12 @@
 
+# ifndef MEASURE_SORT_H
+# define MEASURE_SORT_H
+
 # include <htlist.H>
+
+using namespace std;
+using namespace Aleph;
+
 
 using Measure = tuple<int, DynList<double>>;
 
@@ -19,7 +26,6 @@ using Measure = tuple<int, DynList<double>>;
       }								\
     return t;							\
   }
-
 
 MEASURE_SORT_METHOD(insertion_sort);
 MEASURE_SORT_METHOD(mergesort);
@@ -79,3 +85,5 @@ inline  ostream & operator << (ostream & s, const DynList<Measure> & l)
   
   return s;
 }
+
+# endif // MEASURE_SORT_H

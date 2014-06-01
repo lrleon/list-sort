@@ -21,6 +21,9 @@ DynList<Ulong> generate_semi_sorted_perm(const size_t n,
 					 gsl_rng * r)
 {
   assert(sort_fact >= 0 and sort_fact <= 1);
+
+  if (sort_fact == 1)
+    return generate_random_perm(n, r);
  
   DynArray<Ulong> elems = range<DynArray, Ulong>(n); // an array for fast access
     

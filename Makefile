@@ -18,20 +18,32 @@ LIBS = -L $(ALEPH) \
 
 HEADERS= gen.H measure-sort.H sort.H defs.H
 
-SRC= rand-perm.C rand-perm-op.C semi-perm.C semi-perm-op.C testmqi.C testqi.C testmi.C testq.C testm.C testsqm.C
+SRC= rand-perm.C rand-perm-op.C semi-perm.C semi-perm-op.C testmqi.C testqi.C testmi.C testq.C testm.C testsqm.C testmc.C sample.C
 
-EXE=rand-perm rand-perm-op semi-perm semi-perm-op testmqi testqi testmi testq testm testmqi-op testqi-op testmi-op testq-op testm-op testsqm testsqm-op
+EXE=rand-perm rand-perm-op semi-perm semi-perm-op testmqi testqi testmi testq testm testmqi-op testqi-op testmi-op testq-op testm-op testsqm testsqm-op testmc testmc-op sample sample-op
 
 all: $(EXE)
 
 clean:
 	rm -f $(EXE)
 
+sample: sample.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+sample-op: sample
+	$(CXX) $(FLAGS) $(INCLUDE) sample.C -o $@ $(LIBS)
+
 testmqi: testmqi.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
 testmi: testmi.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testmc: testm.C $(HEADERS)
+	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
+
+testmc-op: testmc
+	$(CXX) $(FLAGS) $(INCLUDE) testmc.C -o $@ $(LIBS)
 
 testqi: testqi.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)

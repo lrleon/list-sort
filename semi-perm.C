@@ -22,7 +22,7 @@ using namespace Aleph;
 
 void usage()
 {
-  cout << "./raw-perf num-items step sort-fact num-reps seed" << endl;
+  cout << "./semi-perf num-items step sort-fact num-reps seed" << endl;
   exit(0);
 }
 

@@ -78,8 +78,18 @@ size_t split_list(DynList<Ulong> & l, DynList<Ulong> & l1, DynList<Ulong> & l2)
   return n;
 }
 
-inline void merge_insert(DynList<Ulong> & l, 
-			 const size_t lsz = insertion_threshold)
+inline void mergesort(DynList<Ulong> & l, const size_t lsz)
+{
+  mergesort(l);
+}
+
+inline void quicksort(DynList<Ulong> & l, const size_t lsz)
+{
+  quicksort(l);
+}
+
+inline void mergecmp(DynList<Ulong> & l, 
+		     const size_t lsz = insertion_threshold)
 {
   if (lsz < insertion_threshold)
     {
@@ -88,11 +98,14 @@ inline void merge_insert(DynList<Ulong> & l,
     }
 
   DynList<Ulong> l1, l2;
-  size_t n = split_list(l, l1, l2);
+  size_t n = split_compare(l, l1, l2);
+
+  if (n == 0)
+    return;
 
   size_t n2 = n/2;
-  merge_insert(l1, n % 2 == 0 ? n2 : n2 + 1);
-  merge_insert(l2, n2);
+  mergecmp(l1, n % 2 == 0 ? n2 : n2 + 1);
+  mergecmp(l2, n2); 
 
   merge_lists<DynList<Ulong>, std::less<Ulong>>(l1, l2, l);
 }
@@ -365,6 +378,10 @@ void super_quickmergesort(DynList<Ulong> & l,
     gsl_rng_set(r, seed % gsl_rng_max(r));				\
 									\
     insertion_threshold = threshold;					\
+    cout << "n = " << n << endl						\
+    << "insertion_threshold = " << insertion_threshold << endl		\
+    << "sort factor = " << 100*sortfact << endl				\
+    << "seed " << seed << endl;\
 									\
     double time = test_##name(n, sortfact, r);				\
 									\
