@@ -10,23 +10,29 @@
 
 size_t insertion_threshold = 20;
 
+// advance it1 in one position and it2 in two positions 
 inline bool double_next(DynList<Ulong>::Iterator & it1, 
 			DynList<Ulong>::Iterator & it2, 
 			size_t & count,
 			Ulong & prev)
 {
   Ulong curr = it2.get_curr();
-  bool ret =  curr >= prev; 
+  bool ret = curr >= prev; 
+  
   it2.next();
   ++count; 
+  prev = curr; 
   if (not it2.has_curr())
     return ret;
   
-  prev = curr; 
   it1.next();
-  ret =  it2.get_curr() >= prev; 
+
+  curr = it2.get_curr(); 
+  ret = curr >= prev and ret;
+
   it2.next();
   ++count; 
+  prev = curr; 
 
   return ret;
 } 
@@ -39,7 +45,7 @@ size_t split_compare(DynList<Ulong> & l,
 
   if (l.is_empty() or l.is_unitarian())
     return 0; // no split
-  
+
   Ulong prev = l.get_first();
   bool is_sorted = true;
 
@@ -78,14 +84,19 @@ size_t split_list(DynList<Ulong> & l, DynList<Ulong> & l1, DynList<Ulong> & l2)
   return n;
 }
 
-inline void mergesort(DynList<Ulong> & l, const size_t lsz)
+inline void mergesort_w(DynList<Ulong> & l, const size_t)
 {
   mergesort(l);
 }
 
-inline void quicksort(DynList<Ulong> & l, const size_t lsz)
+inline void quicksort_w(DynList<Ulong> & l, const size_t)
 {
   quicksort(l);
+}
+
+inline void insertionsort_w(DynList<Ulong> & l, const size_t)
+{
+  insertion_sort(l);
 }
 
 inline void mergecmp(DynList<Ulong> & l, 

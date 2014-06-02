@@ -31,7 +31,7 @@ sample: sample.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
 sample-op: sample
-	$(CXX) $(FLAGS) $(INCLUDE) sample.C -o $@ $(LIBS)
+	$(CXX) $(OPT) $(INCLUDE) sample.C -o $@ $(LIBS)
 
 testmqi: testmqi.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
@@ -43,7 +43,7 @@ testmc: testm.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
 
 testmc-op: testmc
-	$(CXX) $(FLAGS) $(INCLUDE) testmc.C -o $@ $(LIBS)
+	$(CXX) $(OPT) $(INCLUDE) testmc.C -o $@ $(LIBS)
 
 testqi: testqi.C $(HEADERS)
 	$(CXX) $(FLAGS) $(INCLUDE) $@.C -o $@ $(LIBS)
