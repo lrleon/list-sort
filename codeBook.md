@@ -21,4 +21,4 @@ in order to know the program interface
 
 It is
 
-   n, sort-method-tag, suffle factor insertion_threshold, execution-time
+	n, sort-method-tag, suffle factor insertion_threshold, execution-time
