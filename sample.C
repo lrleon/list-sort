@@ -145,10 +145,11 @@ void parser(int argc, char ** argv)
 
   SwitchArg all("a", "all", "execute all sorting methods", false);
 
-  // cmd.add(all);
-  // cmd.add(type);
-
   cmd.xorAdd(all, type);
+
+  ValueArg<size_t> num_runs("r", "num-runs", "number of runs", false, 1,
+			    "number of runs");
+  cmd.add(num_runs);
 
   cmd.parse(argc, argv);
 
@@ -199,13 +200,9 @@ void parser(int argc, char ** argv)
   if (header.getValue())
     cout << "n, method.type, insertion.threshold, time" << endl;
 
-  test(mnames, n.getValue(), N.getValue(), step.getValue(), 
-       sortfact.getValue(), num_samples.getValue(), r);
-  // void test(const DynList<Method> & methods, 
-  // 	  size_t init, size_t len, size_t step,
-  // 	  double sortfact, size_t ins_threshold,
-  // 	  size_t num_samples,
-  // 	  gsl_rng * r)
+  for (size_t i = 0; i < num_runs.getValue(); ++i)
+    test(mnames, n.getValue(), N.getValue(), step.getValue(), 
+	 sortfact.getValue(), num_samples.getValue(), r);
   
   gsl_rng_free(r);
 }
