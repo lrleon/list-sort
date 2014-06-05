@@ -60,14 +60,14 @@ is faster than quicksort and mergesort?
 In this study we test the following methods (the tag and factor name are
 between ()):
 
-1- (insertionsort, Insertion): the classical insertion sort.
-2- (quicksort_w, Quicksort): pure quicksort.
-3- (mergesort_w, Mergesort): pure mergesort.
-4- (merge_insertsort, Mergesort.Insertion): mergesort combined with
+1. (insertionsort, Insertion): the classical insertion sort.
+2. (quicksort_w, Quicksort): pure quicksort.
+3. (mergesort_w, Mergesort): pure mergesort.
+4. (merge_insertsort, Mergesort.Insertion): mergesort combined with
 insertion for partition sizes lesser that insertion_threshold.
-5- (quicksort_insertion, Quicksort.Insertion): quicksort combined with
+5. (quicksort_insertion, Quicksort.Insertion): quicksort combined with
 insertion for partition sizes lesser that insertion_threshold.
-6- (quickmergesort, Quick.Merge.Insertion): list is partioned by two,
+6. (quickmergesort, Quick.Merge.Insertion): list is partioned by two,
 then, by examining the first and last items of both partitions, it is
 decided whether call to quiksort or mergesort. Let be i1, i2, i3, i4 the
 items of partitions. If i1 < i2 < i3 < i4 or i1 > i2 > i3 > i4 then it
@@ -78,9 +78,9 @@ quicksort (using its partition method). Finally, if the previous
 condition is not matched, then the partirions are sorted again with
 mergesort. In any case, if the partition size is lesser that
 insertion_threshold, then it is sorted with insertion sort.
-7-. (mergecmp, Merge.Sorted.Test): this is mergesort, but during the
+7. (mergecmp, Merge.Sorted.Test): this is mergesort, but during the
 split the list order is tested and if the list is already sorted then
 the recursion is avoided. Again insertion sort is called if partition
 size is lesser than insertion_threshold.
-8- Same that mergecmp but the test for verifiying if the list is already
+8. Same that mergecmp but the test for verifiying if the list is already
 sorted is not performed
