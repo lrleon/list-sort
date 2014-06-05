@@ -1,6 +1,7 @@
-# Data from sorting methods
+Data from sorting methods
+=========================
 
-## The data produced by sample
+# The data produced by sample
 
 The program sample performs several sorting methods with diverse
 parameter and measures their executions times on sequences stored in
@@ -20,7 +21,7 @@ Type
 
 in order to know the program interface
 
-### The row structure
+## The row structure
 
 It is
 
