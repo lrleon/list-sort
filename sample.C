@@ -157,11 +157,6 @@ void parser(int argc, char ** argv)
   for (auto it = type.begin(); it != type.end(); it++)
     names.append(*it);
 
-  // if (all.getValue())
-  //   cout << "all es true" << endl;
-  // else
-  //   cout << "all es false" << endl;
-
   DynList<Method> mnames;
   if (all.getValue())
     mnames = methods;
@@ -198,7 +193,7 @@ void parser(int argc, char ** argv)
   gsl_rng_set(r, seed.getValue() % gsl_rng_max(r));
 
   if (header.getValue())
-    cout << "n, method.type, insertion.threshold, time" << endl;
+    cout << "n, method.type, sort.factor, insertion.threshold, time" << endl;
 
   for (size_t i = 0; i < num_runs.getValue(); ++i)
     test(mnames, n.getValue(), N.getValue(), step.getValue(), 

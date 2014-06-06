@@ -82,5 +82,7 @@ insertion_threshold, then it is sorted with insertion sort.
 split the list order is tested and if the list is already sorted then
 the recursion is avoided. Again insertion sort is called if partition
 size is lesser than insertion_threshold.
-8. Same that mergecmp but the test for verifiying if the list is already
-sorted is not performed
+8. (super_quickmergesort, Merge.Quick.Sorted) Same that mergecmp but
+combined with quiksort and test for verifiying if the list is already
+sorted is not performed.
+
