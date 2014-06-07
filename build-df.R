@@ -43,7 +43,21 @@ load.data <- function(filename = "s.csv") {
     data
 }
 
-means <- function(threshold, sortfactor) {
+extract <- function(data, threshold, sortfactor) {
 
-    
+    valid <-
+        data$insertion.threshold == threshold & data$sort.factor == sortfactor
+    data[valid, ]
+}
+
+filter.method <- function(data, name) {
+
+    data[data$method.type != name, ]
+}
+
+means <- function(d) {
+
+    aggregate(list(time=d$time), by=list(n=d$n, method.type=d$method.type,
+                          sort.factor=d$sort.factor,
+                          threshold=d$insertion.threshold), mean)
 }
